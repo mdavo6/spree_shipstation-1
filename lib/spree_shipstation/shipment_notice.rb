@@ -36,7 +36,7 @@ module SpreeShipstation
     end
 
     def process_payment
-      return if shipment.order.paid?
+      return if (shipment.order.paid? || shipment.order.is_wholesale?)
 
       unless SpreeShipstation.configuration.capture_at_notification
         raise OrderNotPaidError, shipment.order
